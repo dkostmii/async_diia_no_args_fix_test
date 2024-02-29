@@ -1,0 +1,4 @@
+dist/
+node_modules/
+старт.node.js
+старт.web.js

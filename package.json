@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
+  "name": "mavka-v-brauzeri",
+  "devDependencies": {
+    "browser-sync": "^3.0.2"
+  },
+  "scripts": {
+    "serve": "browser-sync -w .",
+    "build": "node index.js && node старт.node.js"
+  },
+  "type": "module"
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="dist/optimized_jejalyk_web.js"></script>
+    <script src="dist/optimized_jejalyk_web.wasm"></script>
+    <script>
+      window.mavka_compilation_options = {
+        args: "",
+        std_code: `
+js """
+var м_друк = мДія(function(values) {
+  console.log(...values.map((v) => мГарно(v)));
+});
+"""
+
+макет дія друк(...значення список<обʼєкт>) пусто
+`,
+        main_module_path: "",
+        root_module_path: "",
+        current_module_path: "",
+        get_module_name: async (relative, module, options) => {
+          return { error: "", result: "" };
+        },
+        // ...
+      };
+
+      const downloadFile = (content) => {
+         const link = document.createElement("a");
+         const file = new Blob([content], { type: 'text/plain' });
+         link.href = URL.createObjectURL(file);
+         link.download = "старт.web.js";
+         link.click();
+         URL.revokeObjectURL(link.href);
+      };
+
+      Module.onRuntimeInitialized = async () => {
+        try {
+          const contentResponse = await fetch("/старт.м");
+          const content = await contentResponse.text();
+          const { result } = await Module.compile(content);
+          downloadFile(result);
+        } catch (e) {
+          console.error("Помилка при завантаженні та компіляції тестового коду (старт.м):", e);
+        }
+      };
+    </script>
+    <ol>
+        <li>
+            Перемістіть <code>старт.web.js</code> у корінь цього проекту за допомогою
+            <code>move_downloaded.sh</code>.
+        </li>
+        <li>
+            Клікніть <emph>Запустити</emph>
+        </li>
+    </ol>
+    <a href="./старт.html">Запустити</a>
+</body>
+</html>
